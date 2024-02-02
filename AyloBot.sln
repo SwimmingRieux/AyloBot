@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29519.181
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AyloBot", "AyloBot.csproj", "{F88721F4-D9B8-464E-9309-A8E3C409EA15}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F88721F4-D9B8-464E-9309-A8E3C409EA15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F88721F4-D9B8-464E-9309-A8E3C409EA15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F88721F4-D9B8-464E-9309-A8E3C409EA15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F88721F4-D9B8-464E-9309-A8E3C409EA15}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {492E6F9B-1DBC-460F-B9A0-2CD983D88094}
+	EndGlobalSection
+EndGlobal

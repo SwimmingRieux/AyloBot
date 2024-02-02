@@ -1,0 +1,246 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="AyloBotModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Filtereds">
+          <Key>
+            <PropertyRef Name="FID" />
+          </Key>
+          <Property Name="FID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FTID" Type="int" />
+          <Property Name="SID" Type="int" />
+        </EntityType>
+        <EntityType Name="FilterTypes">
+          <Key>
+            <PropertyRef Name="FTID" />
+          </Key>
+          <Property Name="FTID" Type="int" Nullable="false" />
+          <Property Name="FTName" Type="nvarchar" MaxLength="200" />
+          <Property Name="FTDesc" Type="nvarchar" MaxLength="500" />
+          <Property Name="FTCode" Type="nvarchar" MaxLength="4000" />
+          <Property Name="FTType" Type="int" />
+        </EntityType>
+        <EntityType Name="Messages">
+          <Key>
+            <PropertyRef Name="MID" />
+          </Key>
+          <Property Name="MID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MCID" Type="int" />
+          <Property Name="MUID" Type="int" />
+          <Property Name="MUName" Type="varchar" MaxLength="40" />
+          <Property Name="MDate" Type="char" MaxLength="16" />
+          <Property Name="MText" Type="varchar" MaxLength="1500" />
+        </EntityType>
+        <EntityType Name="Symbols">
+          <Key>
+            <PropertyRef Name="SID" />
+          </Key>
+          <Property Name="SID" Type="int" Nullable="false" />
+          <Property Name="SRahID" Type="int" />
+          <Property Name="SName" Type="nvarchar" MaxLength="30" />
+          <Property Name="SRahName" Type="nvarchar" MaxLength="30" />
+          <Property Name="SJsonCode" Type="nvarchar(max)" />
+          <Property Name="SUpdateTime" Type="int" />
+        </EntityType>
+        <Association Name="FK_Filtereds_FilterTypes">
+          <End Role="FilterTypes" Type="Self.FilterTypes" Multiplicity="0..1" />
+          <End Role="Filtereds" Type="Self.Filtereds" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FilterTypes">
+              <PropertyRef Name="FTID" />
+            </Principal>
+            <Dependent Role="Filtereds">
+              <PropertyRef Name="FTID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Filtereds_Symbols">
+          <End Role="Symbols" Type="Self.Symbols" Multiplicity="0..1" />
+          <End Role="Filtereds" Type="Self.Filtereds" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Symbols">
+              <PropertyRef Name="SID" />
+            </Principal>
+            <Dependent Role="Filtereds">
+              <PropertyRef Name="SID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AyloBotModelStoreContainer">
+          <EntitySet Name="Filtereds" EntityType="Self.Filtereds" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FilterTypes" EntityType="Self.FilterTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Messages" EntityType="Self.Messages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Symbols" EntityType="Self.Symbols" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Filtereds_FilterTypes" Association="Self.FK_Filtereds_FilterTypes">
+            <End Role="FilterTypes" EntitySet="FilterTypes" />
+            <End Role="Filtereds" EntitySet="Filtereds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Filtereds_Symbols" Association="Self.FK_Filtereds_Symbols">
+            <End Role="Symbols" EntitySet="Symbols" />
+            <End Role="Filtereds" EntitySet="Filtereds" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AyloBotModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Filtered">
+          <Key>
+            <PropertyRef Name="FID" />
+          </Key>
+          <Property Name="FID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FTID" Type="Int32" />
+          <Property Name="SID" Type="Int32" />
+          <NavigationProperty Name="FilterType" Relationship="Self.FK_Filtereds_FilterTypes" FromRole="Filtereds" ToRole="FilterTypes" />
+          <NavigationProperty Name="Symbol" Relationship="Self.FK_Filtereds_Symbols" FromRole="Filtereds" ToRole="Symbols" />
+        </EntityType>
+        <EntityType Name="FilterType">
+          <Key>
+            <PropertyRef Name="FTID" />
+          </Key>
+          <Property Name="FTID" Type="Int32" Nullable="false" />
+          <Property Name="FTName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="FTDesc" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FTCode" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="FTType" Type="Int32" />
+          <NavigationProperty Name="Filtereds" Relationship="Self.FK_Filtereds_FilterTypes" FromRole="FilterTypes" ToRole="Filtereds" />
+        </EntityType>
+        <EntityType Name="Message">
+          <Key>
+            <PropertyRef Name="MID" />
+          </Key>
+          <Property Name="MID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MCID" Type="Int32" />
+          <Property Name="MUID" Type="Int32" />
+          <Property Name="MUName" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="MDate" Type="String" MaxLength="16" FixedLength="true" Unicode="false" />
+          <Property Name="MText" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Symbol">
+          <Key>
+            <PropertyRef Name="SID" />
+          </Key>
+          <Property Name="SID" Type="Int32" Nullable="false" />
+          <Property Name="SRahID" Type="Int32" />
+          <Property Name="SName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="SRahName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="SJsonCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SUpdateTime" Type="Int32" />
+          <NavigationProperty Name="Filtereds" Relationship="Self.FK_Filtereds_Symbols" FromRole="Symbols" ToRole="Filtereds" />
+        </EntityType>
+        <Association Name="FK_Filtereds_FilterTypes">
+          <End Role="FilterTypes" Type="Self.FilterType" Multiplicity="0..1" />
+          <End Role="Filtereds" Type="Self.Filtered" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FilterTypes">
+              <PropertyRef Name="FTID" />
+            </Principal>
+            <Dependent Role="Filtereds">
+              <PropertyRef Name="FTID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Filtereds_Symbols">
+          <End Role="Symbols" Type="Self.Symbol" Multiplicity="0..1" />
+          <End Role="Filtereds" Type="Self.Filtered" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Symbols">
+              <PropertyRef Name="SID" />
+            </Principal>
+            <Dependent Role="Filtereds">
+              <PropertyRef Name="SID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AyloBotEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Filtereds" EntityType="Self.Filtered" />
+          <EntitySet Name="FilterTypes" EntityType="Self.FilterType" />
+          <EntitySet Name="Messages" EntityType="Self.Message" />
+          <EntitySet Name="Symbols" EntityType="Self.Symbol" />
+          <AssociationSet Name="FK_Filtereds_FilterTypes" Association="Self.FK_Filtereds_FilterTypes">
+            <End Role="FilterTypes" EntitySet="FilterTypes" />
+            <End Role="Filtereds" EntitySet="Filtereds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Filtereds_Symbols" Association="Self.FK_Filtereds_Symbols">
+            <End Role="Symbols" EntitySet="Symbols" />
+            <End Role="Filtereds" EntitySet="Filtereds" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AyloBotModelStoreContainer" CdmEntityContainer="AyloBotEntities">
+          <EntitySetMapping Name="Filtereds">
+            <EntityTypeMapping TypeName="AyloBotModel.Filtered">
+              <MappingFragment StoreEntitySet="Filtereds">
+                <ScalarProperty Name="FID" ColumnName="FID" />
+                <ScalarProperty Name="FTID" ColumnName="FTID" />
+                <ScalarProperty Name="SID" ColumnName="SID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FilterTypes">
+            <EntityTypeMapping TypeName="AyloBotModel.FilterType">
+              <MappingFragment StoreEntitySet="FilterTypes">
+                <ScalarProperty Name="FTID" ColumnName="FTID" />
+                <ScalarProperty Name="FTName" ColumnName="FTName" />
+                <ScalarProperty Name="FTDesc" ColumnName="FTDesc" />
+                <ScalarProperty Name="FTCode" ColumnName="FTCode" />
+                <ScalarProperty Name="FTType" ColumnName="FTType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Messages">
+            <EntityTypeMapping TypeName="AyloBotModel.Message">
+              <MappingFragment StoreEntitySet="Messages">
+                <ScalarProperty Name="MID" ColumnName="MID" />
+                <ScalarProperty Name="MCID" ColumnName="MCID" />
+                <ScalarProperty Name="MUID" ColumnName="MUID" />
+                <ScalarProperty Name="MUName" ColumnName="MUName" />
+                <ScalarProperty Name="MDate" ColumnName="MDate" />
+                <ScalarProperty Name="MText" ColumnName="MText" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Symbols">
+            <EntityTypeMapping TypeName="AyloBotModel.Symbol">
+              <MappingFragment StoreEntitySet="Symbols">
+                <ScalarProperty Name="SID" ColumnName="SID" />
+                <ScalarProperty Name="SRahID" ColumnName="SRahID" />
+                <ScalarProperty Name="SName" ColumnName="SName" />
+                <ScalarProperty Name="SRahName" ColumnName="SRahName" />
+                <ScalarProperty Name="SJsonCode" ColumnName="SJsonCode" />
+                <ScalarProperty Name="SUpdateTime" ColumnName="SUpdateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

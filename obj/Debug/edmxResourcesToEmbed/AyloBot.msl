@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="AyloBotModelStoreContainer" CdmEntityContainer="AyloBotEntities">
+    <EntitySetMapping Name="Filtereds">
+      <EntityTypeMapping TypeName="AyloBotModel.Filtered">
+        <MappingFragment StoreEntitySet="Filtereds">
+          <ScalarProperty Name="FID" ColumnName="FID" />
+          <ScalarProperty Name="FTID" ColumnName="FTID" />
+          <ScalarProperty Name="SID" ColumnName="SID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FilterTypes">
+      <EntityTypeMapping TypeName="AyloBotModel.FilterType">
+        <MappingFragment StoreEntitySet="FilterTypes">
+          <ScalarProperty Name="FTID" ColumnName="FTID" />
+          <ScalarProperty Name="FTName" ColumnName="FTName" />
+          <ScalarProperty Name="FTDesc" ColumnName="FTDesc" />
+          <ScalarProperty Name="FTCode" ColumnName="FTCode" />
+          <ScalarProperty Name="FTType" ColumnName="FTType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Messages">
+      <EntityTypeMapping TypeName="AyloBotModel.Message">
+        <MappingFragment StoreEntitySet="Messages">
+          <ScalarProperty Name="MID" ColumnName="MID" />
+          <ScalarProperty Name="MCID" ColumnName="MCID" />
+          <ScalarProperty Name="MUID" ColumnName="MUID" />
+          <ScalarProperty Name="MUName" ColumnName="MUName" />
+          <ScalarProperty Name="MDate" ColumnName="MDate" />
+          <ScalarProperty Name="MText" ColumnName="MText" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Symbols">
+      <EntityTypeMapping TypeName="AyloBotModel.Symbol">
+        <MappingFragment StoreEntitySet="Symbols">
+          <ScalarProperty Name="SID" ColumnName="SID" />
+          <ScalarProperty Name="SRahID" ColumnName="SRahID" />
+          <ScalarProperty Name="SName" ColumnName="SName" />
+          <ScalarProperty Name="SRahName" ColumnName="SRahName" />
+          <ScalarProperty Name="SJsonCode" ColumnName="SJsonCode" />
+          <ScalarProperty Name="SUpdateTime" ColumnName="SUpdateTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

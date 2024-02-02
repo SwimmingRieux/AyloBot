@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AyloBotModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Filtered">
+    <Key>
+      <PropertyRef Name="FID" />
+    </Key>
+    <Property Name="FID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FTID" Type="Int32" />
+    <Property Name="SID" Type="Int32" />
+    <NavigationProperty Name="FilterType" Relationship="Self.FK_Filtereds_FilterTypes" FromRole="Filtereds" ToRole="FilterTypes" />
+    <NavigationProperty Name="Symbol" Relationship="Self.FK_Filtereds_Symbols" FromRole="Filtereds" ToRole="Symbols" />
+  </EntityType>
+  <EntityType Name="FilterType">
+    <Key>
+      <PropertyRef Name="FTID" />
+    </Key>
+    <Property Name="FTID" Type="Int32" Nullable="false" />
+    <Property Name="FTName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="FTDesc" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="FTCode" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="FTType" Type="Int32" />
+    <NavigationProperty Name="Filtereds" Relationship="Self.FK_Filtereds_FilterTypes" FromRole="FilterTypes" ToRole="Filtereds" />
+  </EntityType>
+  <EntityType Name="Message">
+    <Key>
+      <PropertyRef Name="MID" />
+    </Key>
+    <Property Name="MID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MCID" Type="Int32" />
+    <Property Name="MUID" Type="Int32" />
+    <Property Name="MUName" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="MDate" Type="String" MaxLength="16" FixedLength="true" Unicode="false" />
+    <Property Name="MText" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Symbol">
+    <Key>
+      <PropertyRef Name="SID" />
+    </Key>
+    <Property Name="SID" Type="Int32" Nullable="false" />
+    <Property Name="SRahID" Type="Int32" />
+    <Property Name="SName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="SRahName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="SJsonCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SUpdateTime" Type="Int32" />
+    <NavigationProperty Name="Filtereds" Relationship="Self.FK_Filtereds_Symbols" FromRole="Symbols" ToRole="Filtereds" />
+  </EntityType>
+  <Association Name="FK_Filtereds_FilterTypes">
+    <End Role="FilterTypes" Type="Self.FilterType" Multiplicity="0..1" />
+    <End Role="Filtereds" Type="Self.Filtered" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FilterTypes">
+        <PropertyRef Name="FTID" />
+      </Principal>
+      <Dependent Role="Filtereds">
+        <PropertyRef Name="FTID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Filtereds_Symbols">
+    <End Role="Symbols" Type="Self.Symbol" Multiplicity="0..1" />
+    <End Role="Filtereds" Type="Self.Filtered" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Symbols">
+        <PropertyRef Name="SID" />
+      </Principal>
+      <Dependent Role="Filtereds">
+        <PropertyRef Name="SID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="AyloBotEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Filtereds" EntityType="Self.Filtered" />
+    <EntitySet Name="FilterTypes" EntityType="Self.FilterType" />
+    <EntitySet Name="Messages" EntityType="Self.Message" />
+    <EntitySet Name="Symbols" EntityType="Self.Symbol" />
+    <AssociationSet Name="FK_Filtereds_FilterTypes" Association="Self.FK_Filtereds_FilterTypes">
+      <End Role="FilterTypes" EntitySet="FilterTypes" />
+      <End Role="Filtereds" EntitySet="Filtereds" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Filtereds_Symbols" Association="Self.FK_Filtereds_Symbols">
+      <End Role="Symbols" EntitySet="Symbols" />
+      <End Role="Filtereds" EntitySet="Filtereds" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
