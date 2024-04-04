@@ -1,1 +1,1 @@
-A C# telegram bot, designed with the purpose of gathering technical and fundamental analysis information of stock market. Powered by Selenium library.
+A C# telegram bot, designed with the purpose of gathering technical and fundamental analysis information of stock market. Powered by Selenium library. The bot consistently inputs data into websites, retrieves responses through web scraping, and subsequently stores them in a database. These data are later accessed by users 
